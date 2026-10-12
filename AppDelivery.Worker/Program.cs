@@ -64,6 +64,13 @@ builder.Services.AddSingleton<JobQueue>();
 
 builder.Services.AddHostedService<DeliveryWorker>();
 
+// What a scan found, written down.
+//
+// Here rather than in the test runner because that machine runs untrusted
+// vendor installers as SYSTEM and holds no database credentials. The report
+// comes back over the broker and this writes it.
+builder.Services.AddHostedService<ScanResultWorker>();
+
 // A delivery that succeeds clears up after itself. One that fails keeps
 // everything, because that is the only evidence — and then keeps it forever.
 // This removes those once they are old enough that nobody will open them.
