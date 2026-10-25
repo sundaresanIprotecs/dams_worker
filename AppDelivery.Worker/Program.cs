@@ -62,6 +62,14 @@ builder.Services.AddAppDeliveryBuilding(builder.Configuration);
 // able to queue work for itself is a worker that can loop.
 builder.Services.AddSingleton<JobQueue>();
 
+// Submitting a build for review.
+//
+// The worker needs this because it holds the gate: a delivery that reaches
+// the scan step parks there and asks for a scan, and the reviewer's decision
+// comes back on the queue. Registered only in the API before this, so the
+// worker started and then could not construct DeliveryWorker at all.
+builder.Services.AddScanning(builder.Configuration);
+
 builder.Services.AddHostedService<DeliveryWorker>();
 
 // What a scan found, written down.

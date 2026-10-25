@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\AppDelivery.Infrastructure\AppDelivery.Infrastructure.csproj" />
+
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.1" />
@@ -16,6 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\AppDelivery.Infrastructure\AppDelivery.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Paging, version ordering and TOTP live in Platform.Core now. A
+         global using rather than a line in thirty files: they were in this
+         assembly's own namespace for two years and nothing about them
+         changed except where they are kept. -->
+    <Using Include="Platform.Core" />
+  </ItemGroup>
+
 </Project>
